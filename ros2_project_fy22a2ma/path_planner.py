@@ -16,8 +16,26 @@ class pathPlanner(Node):
         
     def read_map(self):
         self.map_image = cv2.imread("/uolstore/home/users/fy22a2ma/ros2_ws/src/ros2_project_fy22a2ma/map/map.pgm", cv2.IMREAD_GRAYSCALE)
+        height, width = self.map_image.shape
+        cell_size = 5
+        cells = []
+        world_cells = []
+        for i in range(0,height):
+            for j in range(0,width): 
+                cell = self.map_image[i:i + cell_size, j:j + cell_size]
+                if np.mean(cell) > 250:
+                    cells.append((i,j))
         
+        for r,c in cells:
+            r_center = r + cell_size/2
+            c_center = c + cell_size/2
 
+            x_map = r_center * 0.05 + -12.2
+            y_map = c_center * 0.05 + -15.8
+
+            world_cells.append((x_map,y_map))
+            
+            
         
 def main():
     
