@@ -11,29 +11,32 @@ from rclpy.exceptions import ROSInterruptException
 import signal
 
 class pathPlanner(Node):
-    def __init___(self):
-        super().__init__('PP')
+    def __init__(self):
+        super().__init__('pp')
+        
+    def read_map(self):
+        self.map_image = cv2.imread("/uolstore/home/users/fy22a2ma/ros2_ws/src/ros2_project_fy22a2ma/map/map.pgm", cv2.IMREAD_GRAYSCALE)
         
 
         
-        
-        
-        
 def main():
     
-    def signal_handler(sig, farme):
+    def signal_handler(sig, frame):
         rclpy.shutdown()
+
     rclpy.init(args=None)
-    PP = pathPlanner()
+    pp = pathPlanner()
   
     signal.signal(signal.SIGINT, signal_handler)
-    thread = threading.Thread(target=rclpy.spin, args=(PP,), daemon=True)
+    thread = threading.Thread(target=rclpy.spin, args=(pp,), daemon=True)
     thread.start()
     try:
         while rclpy.ok():
+            pp.read_map()
             continue
     except ROSInterruptException:
         pass
+    cv2.destroyAllWindows() 
 
 if __name__ == '__main__':
     main()
