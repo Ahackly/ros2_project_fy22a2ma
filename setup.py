@@ -21,6 +21,7 @@ setup(
     entry_points={
         'console_scripts': [
             'first_step = ros2_project_fy22a2ma.first_step:main',
+            'path_planner = ros2_project_fy22a2ma.path_planner:main',
             'second_step = ros2_project_fy22a2ma.second_step:main',
             'third_step = ros2_project_fy22a2ma.third_step:main',
             'fourth_step = ros2_project_fy22a2ma.fourth_step:main',
